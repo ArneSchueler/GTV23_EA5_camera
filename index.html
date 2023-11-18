@@ -1,0 +1,62 @@
+<!DOCTYPE html5>
+<html>
+	<head>
+		<title>GTV23 EA5 camera movement</title>
+		<script src="ext/gl-matrix.js"></script>
+		<script src="GVT_Src_vertexData_drop.js"></script>
+		<script src="GVT_Src_vertexData_torus2.js"></script>
+		<script src="GVT_Src_vertexData_plane.js"></script>
+		<script src="KAP_Src_tpl.js"></script>
+		<script type="x-shader/x-vertex" id="vertexshader">
+			attribute vec3 aPosition;
+			attribute vec3 aNormal;
+
+			uniform mat4 uPMatrix;
+			uniform mat4 uMVMatrix;
+
+			varying vec4 vColor;
+
+			void main(){
+				gl_Position = uPMatrix * uMVMatrix * vec4(aPosition, 1.0);
+	
+				vColor = vec4(aNormal.x, aNormal.y, aNormal.z, 1.0);
+				vColor = (vColor + 1.0) / 2.0;
+			}
+		</script>
+		<script type="x-shader/x-fragment" id="fragmentshader">
+			precision mediump float;
+			varying vec4 vColor;
+
+			void main() {
+				gl_FragColor = vColor;
+			}
+		</script>
+		<link rel="stylesheet" href="main.css">
+
+	</head>
+	<body onload="app.start()">
+		<canvas id="canvas" width="800" height="800"></canvas>
+		<div class="info" id="info">
+		<p class="content">
+			Camera movement for the module Graphical Visualisation Technologies (BHT MIM 20 W23).<br>
+			<br>
+			To move the camera clockwise (left) press the left arrow button.<br>
+			<br>
+			To move the camera counterclockwise (right) press the right arrow button.<br>
+			<br>
+			To increase the radius of the camera press "n".<br>
+			<br>
+			To decrease the radius of the camera press "Shift" + "n".<br>
+			<br>
+			Part 2 was not implemented
+		</p>
+		<p></p>
+		<p class="sources">
+			Sources:<br>
+			<a href="http://www.3d-meier.de/tut3/Seite170.html">3.163. Gerono Lemniskate Torus II</a><br>
+			<a href="http://www.3d-meier.de/tut3/Seite44.html">3.40. Tropfen</a><br>
+
+		</p>
+	</div>
+	</body>
+</html>
